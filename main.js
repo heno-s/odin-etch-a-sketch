@@ -10,7 +10,6 @@ const form = document.forms[0];
 const sizeInput = form.querySelector("input");
 const sizeLimit = 100;
 const initialSize = 16;
-const paintColor = "#000";
 
 sizeInput.value = initialSize;
 resizeButton.addEventListener("click", showModal);
@@ -60,13 +59,27 @@ function closeModal() {
     dialog.close();
 }
 
-function colorize(target, color) {
-    target.style.backgroundColor = color;
+function colorize(target, rgb) {
+    target.style.backgroundColor = `rgb(${rgb})`;
+}
+
+function darken(target) {
+    const brightness = target.style.filter.substr(11, 3);
+    target.style.filter = `brightness(${brightness ? brightness - 0.1 : 0.9})`; // last time this is NaN
 }
 
 function paint(evt) {
     if (!(evt instanceof Event) || evt.ctrlKey) return;
-    colorize(evt.target, paintColor);
+    const rgb = randomRGB().toString();
+    if (evt.target.style.backgroundColor) {
+        darken(evt.target);
+    } else {
+        colorize(evt.target, rgb);
+    }
+}
+
+function randomRGB() {
+    return [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
 }
 
 createGrid(initialSize);

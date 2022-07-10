@@ -50,7 +50,7 @@ body {
     font-size: 24px;
 }
 
-dialog {
+.resize-modal {
     border: none;
     padding: 70px 100px;
     background-color: #bf6d6d;
@@ -61,7 +61,7 @@ dialog {
     font-size: 24px;
 }
 
-dialog::backdrop {
+.resize-modal::backdrop {
     background-color: #0005;
 }
 
@@ -113,4 +113,34 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+.helper {
+    font-size: 32px;
+    color: #fff;
+    cursor: pointer;
+    width: 70px;
+    aspect-ratio: 1;
+    background-color: #5943b4bb;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 100vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shortcuts {
+    width: max-content;
+    max-width: 400px;
+    line-height: 1.4;
+    transform: translate(-90%, -100%);
+    top: 0;
+    left: 0;
+    cursor: auto;
+    color: inherit;
+    border: none;
+    border-radius: 20px;
+    background-color: #5943b4bb;
 }

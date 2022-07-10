@@ -10,6 +10,8 @@ const form = document.forms[0];
 const sizeInput = form.querySelector("input");
 const sizeLimit = 100;
 const initialSize = 16;
+const helper = document.querySelector(".helper");
+const shortcuts = document.querySelector(".shortcuts");
 
 sizeInput.value = initialSize;
 resizeButton.addEventListener("click", showModal);
@@ -17,6 +19,8 @@ closeButton.addEventListener("click", closeModal);
 form.addEventListener("submit", (evt) => {
     createGrid(+sizeInput.value);
 });
+helper.addEventListener("mouseenter", showShortcuts);
+helper.addEventListener("mouseleave", closeShortcuts);
 
 function makeSquare(size) {
     const square = document.createElement("div");
@@ -59,6 +63,14 @@ function closeModal() {
     dialog.close();
 }
 
+function showShortcuts() {
+    shortcuts.show();
+}
+
+function closeShortcuts() {
+    shortcuts.close();
+}
+
 function colorize(target, rgb) {
     target.style.backgroundColor = `rgb(${rgb})`;
 }
@@ -69,8 +81,11 @@ function darken(target) {
 }
 
 function paint(evt) {
-    if (!(evt instanceof Event) || evt.ctrlKey) return;
-    const rgb = randomRGB().toString();
+    if (!(evt instanceof MouseEvent) || evt.ctrlKey) return;
+    let rgb = randomRGB().toString();
+    if (evt.shiftKey) {
+        rgb = "0,0,0";
+    }
     if (evt.target.style.backgroundColor) {
         darken(evt.target);
     } else {
@@ -81,5 +96,11 @@ function paint(evt) {
 function randomRGB() {
     return [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
 }
+
+window.addEventListener("keydown", (evt) => {
+    if (evt.key === "m" && evt.ctrlKey) {
+        createGrid(+sizeInput.value);
+    }
+});
 
 createGrid(initialSize);

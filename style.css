@@ -20,8 +20,8 @@ body {
     background: linear-gradient(135deg, rgb(255 0 0 / 0.6), rgb(0 0 255 / 0.6)) #fff;
 }
 
-.game-board {
-    min-height: 700px;
+.gameboard {
+    height: 700px;
     aspect-ratio: 1;
     background: linear-gradient(135deg, rgb(255 0 0 / 0.6), rgb(0 0 255 / 0.6)) #ddd;
     box-shadow: 0 0 60px 0px #0008;
@@ -32,6 +32,10 @@ body {
 .grid {
     display: flex;
     flex-wrap: wrap;
+}
+
+.grid > div {
+    border: 1px solid;
 }
 
 .resize-button {

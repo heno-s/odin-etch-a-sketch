@@ -75,13 +75,25 @@ function colorize(target, rgb) {
     target.style.backgroundColor = `rgb(${rgb})`;
 }
 
+function erase(target) {
+    target.style.cssText = target.style.cssText.replace(/background-color:.*?(;|$)/, "");
+    target.style.cssText = target.style.cssText.replace(/filter:.*?(;|$)/, "");
+}
+
 function darken(target) {
     const brightness = target.style.filter.substr(11, 3);
     target.style.filter = `brightness(${brightness ? brightness - 0.1 : 0.9})`; // last time this is NaN
 }
 
 function paint(evt) {
-    if (!(evt instanceof MouseEvent) || evt.ctrlKey) return;
+    if (!(evt instanceof MouseEvent)) return;
+    if (evt.altKey) {
+        erase(evt.target);
+        return;
+    } else if (evt.ctrlKey) {
+        return;
+    }
+
     let rgb = randomRGB().toString();
     if (evt.shiftKey) {
         rgb = "0,0,0";

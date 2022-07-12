@@ -29,6 +29,10 @@ body {
     padding: 50px;
 }
 
+.grid-bg {
+    background-color: #fff;
+}
+
 .grid {
     display: flex;
     flex-wrap: wrap;
@@ -36,7 +40,6 @@ body {
 
 .grid > div {
     border: 1px solid;
-    background-color: #fff;
 }
 
 .resize-button {

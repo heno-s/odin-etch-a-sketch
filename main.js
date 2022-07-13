@@ -76,12 +76,11 @@ function colorize(target, rgb) {
 }
 
 function erase(target) {
-    target.style.cssText = target.style.cssText.replace(/background-color:.*?(;|$)/, "");
-    target.style.cssText = target.style.cssText.replace(/filter:.*?(;|$)/, "");
+    removeInlineStyles(target, "background-color", "filter");
 }
 
 function darken(target) {
-    const brightness = target.style.filter.substr(11, 3);
+    const brightness = target.style.filter.match(/brightness\((.*)\)/)?.[1];
     target.style.filter = `brightness(${brightness ? brightness - 0.1 : 0.9})`; // last time this is NaN
 }
 
@@ -114,5 +113,11 @@ window.addEventListener("keydown", (evt) => {
         createGrid(+sizeInput.value);
     }
 });
+
+function removeInlineStyles(target, ...cssProperties) {
+    const regex = RegExp(cssProperties.map((prop) => prop + ".*?;").join("|"), "g");
+    console.log(regex);
+    target.style.cssText = target.style.cssText.replace(regex, "");
+}
 
 createGrid(initialSize);

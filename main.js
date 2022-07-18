@@ -81,7 +81,7 @@ function erase(target) {
 
 function darken(target) {
     const brightness = target.style.filter.match(/brightness\((.*)\)/)?.[1];
-    target.style.filter = `brightness(${brightness ? brightness - 0.1 : 0.9})`; // last time this is NaN
+    target.style.filter = `brightness(${brightness ? brightness - 0.1 : 0.9})`;
 }
 
 function paint(evt) {
@@ -115,7 +115,7 @@ window.addEventListener("keydown", (evt) => {
 });
 
 function removeInlineStyles(target, ...cssProperties) {
-    const regex = RegExp(cssProperties.map((prop) => prop + ".*?;").join("|"), "g");
+    const regex = RegExp(cssProperties.map((prop) => "(?<=(^ ?|; ?))" + prop + ".*?;").join("|"), "g");
     console.log(regex);
     target.style.cssText = target.style.cssText.replace(regex, "");
 }
